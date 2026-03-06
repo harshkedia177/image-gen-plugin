@@ -1,0 +1,5 @@
+.env
+.claude/*.local.md
+generated-images/
+__pycache__/
+*.pyc

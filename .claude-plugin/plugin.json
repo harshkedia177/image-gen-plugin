@@ -1,0 +1,9 @@
+{
+  "name": "image-gen",
+  "version": "0.1.0",
+  "description": "AI image generation assistant — crafts optimal prompts, generates images via Gemini/Nano Banana, self-reviews, and post-processes. Model-agnostic architecture.",
+  "author": {
+    "name": "Harsh Kedia"
+  },
+  "keywords": ["image-generation", "nano-banana", "gemini", "ai-art", "prompt-engineering"]
+}
