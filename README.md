@@ -10,21 +10,32 @@ Works with **Claude Code, Codex CLI, Gemini CLI, GitHub Copilot, Cursor, OpenCod
 
 Pick your platform:
 
+**Claude Code (recommended):**
+```bash
+# 1. Add the marketplace
+claude plugin marketplace add harshkedia177/image-gen-plugin
+
+# 2. Install the plugin
+claude plugin install image-gen
+```
+
 **Cross-platform (Codex, Gemini CLI, Copilot, Cursor, and more):**
 ```bash
 npx skills add harshkedia177/image-gen-plugin
 ```
 
-**Claude Code plugin:**
+**Claude Code (local dev / one-off):**
 ```bash
-claude plugin add --from harshkedia177/image-gen-plugin
+git clone https://github.com/harshkedia177/image-gen-plugin.git
+claude --plugin-dir ./image-gen-plugin
 ```
 
 **Manual install (any agent):**
 ```bash
-# Clone into your project's .agents/skills/ directory
+# Copy the cross-platform skills into your project
 git clone https://github.com/harshkedia177/image-gen-plugin.git
 cp -r image-gen-plugin/.agents/skills/* .agents/skills/
+rm -rf image-gen-plugin
 ```
 
 ### Set Up Your API Key

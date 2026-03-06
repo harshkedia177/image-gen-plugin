@@ -1,0 +1,21 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "image-gen-marketplace",
+  "description": "AI image generation plugin for coding agents using Google's Nano Banana (Gemini) models",
+  "owner": {
+    "name": "Harsh Kedia"
+  },
+  "plugins": [
+    {
+      "name": "image-gen",
+      "description": "AI image generation assistant — crafts optimal prompts, generates images via Gemini/Nano Banana, self-reviews, and post-processes. Works with all Gemini image models.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Harsh Kedia"
+      },
+      "source": ".",
+      "category": "development",
+      "homepage": "https://github.com/harshkedia177/image-gen-plugin"
+    }
+  ]
+}
