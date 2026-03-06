@@ -138,6 +138,16 @@ to make it a transparent PNG
 Make the lighting warmer and add a slight lens flare from the top right
 ```
 
+**Prompt optimization (fix a bad prompt):**
+```
+Optimize this image prompt: "cat, cute, fluffy, orange, garden, sunny, sitting, flowers"
+```
+
+**Convert from another model:**
+```
+Optimize this Midjourney prompt for Nano Banana: "cyberpunk city --ar 16:9 --v 6 --style raw"
+```
+
 ## Prerequisites
 
 - **`GEMINI_API_KEY`** — required. Get one free at [Google AI Studio](https://aistudio.google.com/apikey)
@@ -188,6 +198,7 @@ search_grounding: false
 | Skill | What It Provides |
 |---|---|
 | **image-generation** | Complete end-to-end generation workflow (universal, works on all platforms) |
+| **prompt-optimizer** | Takes rough/bad prompts and rewrites them — diagnoses issues, applies Gemini best practices, recommends settings |
 | **nano-banana-prompting** | Prompt engineering expertise — NL vs JSON strategy, best practices, examples |
 | **image-post-processing** | Background removal and format conversion |
 
@@ -199,6 +210,7 @@ Each skill includes detailed reference files for advanced techniques, character 
 image-gen-plugin/
 ├── .agents/skills/           # Cross-platform skills (Codex, Gemini CLI, Copilot)
 │   ├── image-generation/     # Universal end-to-end workflow
+│   ├── prompt-optimizer/     # Prompt diagnosis and rewriting
 │   ├── nano-banana-prompting/# Prompt crafting knowledge + references
 │   └── image-post-processing/# Background removal & format conversion
 ├── .claude-plugin/           # Claude Code plugin manifest
@@ -209,6 +221,7 @@ image-gen-plugin/
 │   ├── prompt-crafter.md     # Prompt engineering specialist
 │   └── image-reviewer.md     # Quality review specialist
 ├── skills/                   # Claude Code plugin skills
+│   ├── prompt-optimizer/
 │   ├── nano-banana-prompting/
 │   └── image-post-processing/
 └── scripts/
