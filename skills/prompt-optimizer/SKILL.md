@@ -140,6 +140,13 @@ Good: "A cat sitting in a garden"
 - Resolution mentions → `imageConfig.imageSize` (512px, 0.5K, 1K, 2K, 4K)
 - These are more reliably controlled via structured API parameters than prompt text
 
+**11. Leverage Image Grounding** — for real-world subjects (specific locations, species, landmarks), recommend enabling search grounding so the model searches for reference images before generating:
+```
+Bad:  "a church in a French town" (generic, model guesses)
+Good: "the main historical church in Voiron, France" + enable search grounding
+```
+Note: Image Grounding cannot search for people — recommend reference images for specific person likeness.
+
 ### Phase 4: Select Format
 
 **Natural language** (simple prompts):
@@ -181,11 +188,11 @@ Based on the optimized prompt, recommend API configuration:
 
 | Setting | How to Decide |
 |---|---|
-| **Model** | NB2 (`gemini-3.1-flash-image-preview`) for most work; Pro (`gemini-3-pro-image-preview`) for professional photography, complex multi-subject scenes, or maximum quality |
+| **Model** | NB2 (`gemini-3.1-flash-image-preview`) for all new projects — offers ~95% of Pro's capabilities. Only step up to Pro (`gemini-3-pro-image-preview`) when NB2 consistently fails the specific prompt type |
 | **Aspect ratio** | Match use case: 1:1 Instagram, 16:9 desktop/YouTube, 9:16 Stories/Reels/TikTok, 3:2 standard photo, 21:9 cinematic |
 | **Resolution** | 1K for iteration, 2K for quality output, 4K for print/professional. Use 2K+ when faces are small or fine detail matters |
-| **Thinking mode** | Off for simple prompts. Moderate (2048) for multiple subjects. Advanced (8192+) for spatial reasoning, text layouts, interlocking objects. Advanced costs 20-40% more |
-| **Search grounding** | On for real landmarks, logos, products, current events. NB2 only. 1500 free queries/day |
+| **Thinking mode** | **OFF by default.** Only enable when: model generates nonsensical results, complex infographics, or combining Image Grounding with spatial reasoning. Moderate (2048) for multi-subject coordination. Advanced (8192+) for extreme complexity. Costs 20-40% more |
+| **Search grounding** | On for real landmarks, specific locations, biological species, logos, products, current events. NB2 supports Image Grounding (searches for images, not just text). Cannot search for people. 1500 free queries/day |
 
 ### Phase 6: Present the Result
 

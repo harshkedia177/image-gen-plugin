@@ -171,22 +171,24 @@ Supported values (14 options):
 | `9:16` | Tall portrait — Stories, Reels, TikTok |
 | `16:9` | Wide landscape — YouTube, desktop |
 | `21:9` | Ultra-wide — cinematic, banners |
-| `1:4` | Narrow vertical — bookmark, sidebar |
-| `4:1` | Narrow horizontal — banner, header |
-| `1:8` | Extra narrow vertical |
-| `8:1` | Extra narrow horizontal |
+| `1:4` | Narrow vertical — bookmark, sidebar, scrolling assets |
+| `4:1` | Narrow horizontal — web banner, multi-panel comic strip |
+| `1:8` | Extra narrow vertical — continuous scrolling, tall infographic |
+| `8:1` | Extra narrow horizontal — panoramic banner, timeline |
 
 ### imageSize
 
 | Value | Resolution | Use Case |
 |---|---|---|
-| `512px` | 512×512 | Ultra-fast previews, rapid iteration |
+| `512px` | 512×512 | Ultra-fast previews, cost optimization (~NB1 pricing) |
 | `0.5K` | ~500px | Low-res preview (NB2 Flash only) |
 | `1K` | 1024×1024 | Standard generation |
 | `2K` | 2048×2048 | High quality output |
 | `4K` | 4096×4096 | Professional, print-ready |
 
 **Important**: Always set `imageConfig` parameters explicitly. Do NOT rely on prompt-based hints like "in 16:9 format" — use the structured `imageConfig` fields for reliable control.
+
+**Cost-optimization workflow**: Use the Batch API (50% discount) to generate dozens of variations at 512px → review and select the best composition → upscale that specific image to 1K, 2K, or 4K. This keeps iteration costs comparable to NB1.
 
 ## Response Format
 
@@ -248,3 +250,7 @@ The `groundingMetadata` field is only present when search grounding is enabled.
 ## Safety Filters
 
 The API may block generation for explicit content, violence, hate speech, or real people's faces. If blocked, the response contains a `safetyRatings` field with `BLOCK_*` reasons. Adjust the prompt to comply.
+
+## Image Grounding Limitation
+
+When using search grounding with `imageSearch`, the model **cannot search for people**. It can search for locations, landmarks, buildings, nature/species, products, and objects. For specific person likeness, use reference images via `inlineData` instead.

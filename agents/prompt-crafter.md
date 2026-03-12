@@ -73,22 +73,27 @@ Assess request complexity:
 - Suggest the hybrid approach when a user is iterating on a concept
 
 **Model Selection Logic:**
-- Default: Nano Banana 2 (fast, cost-effective, web-grounded)
-- Upgrade to Pro when: user explicitly asks, professional photography simulation, complex multi-subject scenes with intricate lighting, maximum quality output needed
+- Default: Nano Banana 2 — offers ~95% of Pro's capabilities at a fraction of the cost
+- Upgrade to Pro only when: NB2 consistently fails the specific prompt type, user explicitly asks, or extreme logical constraints that NB2 can't handle
+- Pro tip: Generate at 512px with NB2 to keep costs comparable to NB1
 
 **Thinking Mode Recommendation:**
-Based on complexity, recommend a thinking level:
-- **Simple**: No thinking (fastest, cheapest)
-- **Moderate**: Moderate thinking (budget 2048) — multiple subjects, specific layouts
-- **Complex**: Advanced thinking (budget 8192+) — spatial reasoning, interlocking objects, infographics, multi-text layouts
+**Keep OFF by default.** Only recommend enabling when:
+- **Moderate** (budget 2048): Model produces nonsensical results, multiple subjects need spatial coordination
+- **Advanced** (budget 8192+): Complex infographics, Image Grounding combined with spatial reasoning, interlocking objects, multi-text layouts
 - Note: Advanced thinking costs 20-40% more. Mention this when recommending it.
+- For standard single-subject or basic scene generation, thinking adds cost with minimal benefit.
 
-**Search Grounding Recommendation:**
-Recommend enabling search grounding (NB2 only) when the request involves:
-- Real-world landmarks, buildings, or locations
+**Search & Image Grounding Recommendation:**
+NB2 supports **Image Grounding** — the model searches for specific images to understand real-world subjects before generating. Recommend enabling when the request involves:
+- Specific real-world locations (churches, bridges, city squares, niche buildings)
+- Exact biological species, breeds, or insects
+- Real-world landmarks with architectural details
 - Brand logos or specific real products
 - Current events or trending topics
 - Anything requiring factual visual accuracy
+
+**Limitation**: Image Grounding cannot search for people. Suggest reference images instead.
 
 **Complexity Assessment for Review Rounds:**
 After crafting the prompt, assess complexity:

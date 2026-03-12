@@ -43,6 +43,15 @@ Batch Plan: [Concept]
 
 Wait for user confirmation before proceeding.
 
+### Cost-Optimization Strategy
+
+For cost-sensitive batch work, use the **512px batch-to-upscale workflow**:
+1. Generate all variations at `512px` resolution (cost comparable to NB1)
+2. Present the grid to the user for review
+3. Upscale only the selected winners to `1K`, `2K`, or `4K`
+
+This dramatically reduces iteration costs, especially for large batches. Suggest this approach when generating 5+ variations.
+
 ### 4. Craft Prompts
 
 For batch generation, prefer JSON structured prompting — it enables clean systematic variations by swapping specific fields while keeping the base prompt constant.
@@ -61,7 +70,7 @@ Follow the same API calling pattern as the generate command:
 For each variation sequentially (to respect rate limits):
 1. Build the curl request with variation-specific prompt and `imageConfig`
 2. For complex variations, enable thinking mode: `"thinkingConfig": {"thinkingBudget": 2048}`
-3. If generating real-world subjects, enable search grounding (NB2 only)
+3. If generating real-world subjects (locations, species, landmarks), enable Image Grounding/search grounding (NB2 only). Note: cannot search for people.
 4. Execute curl, extract and save the image
 5. Report progress: "Generated 2/5..."
 

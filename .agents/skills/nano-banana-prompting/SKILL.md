@@ -28,7 +28,11 @@ Provide expert-level prompt crafting for Google's Nano Banana image generation m
 - **Unique features**: Superior textures, lighting, spatial composition
 - **Cost**: ~$0.134 per 2K image
 
-**Selection rule**: Default to NB2 unless user explicitly requests Pro or the request demands maximum quality (professional photography, complex multi-subject scenes, intricate lighting setups).
+**Nano Banana 1 vs 2**: If an existing workflow uses NB1 and works perfectly, no need to migrate. NB1 is cheaper and faster (not a thinking model). For any new pipeline, NB2 is worth the slight bump — better prompt adherence, thinking, and Image Grounding. Pro tip: generate at 512px with NB2 to match NB1 pricing.
+
+**NB2 vs Pro**: NB2 offers roughly 95% of Pro's capabilities at a fraction of the cost. Default to NB2 for all new projects. Only step up to Pro when NB2 consistently fails highly complex, multi-layered prompts or extreme logical constraints.
+
+**Selection rule**: Default to NB2 unless user explicitly requests Pro or NB2 consistently fails the specific prompt type.
 
 ## Prompting Strategy Selection
 
@@ -102,19 +106,32 @@ Consult **`references/json-schema.md`** for the complete JSON schema with all fi
 
 ## Thinking Mode (NB2)
 
-Nano Banana 2 supports configurable thinking levels. When enabled, the model reasons through the prompt before rendering — dramatically improving spatial reasoning, multi-object placement, and complex compositions.
+Nano Banana 2 supports configurable thinking levels. **Recommendation: keep OFF by default.** For standard image generation, turning it off saves time and processing.
 
 | Level | `thinkingBudget` | Cost | Use When |
 |---|---|---|---|
-| Minimal (default) | 0 or omit | Baseline | Simple prompts, fast iteration |
+| Off (recommended default) | 0 or omit | Baseline | Standard generation, fast iteration |
 | Moderate | 1024-4096 | +10-20% | Multiple subjects, specific layouts |
 | Advanced | 8192+ | +20-40% | Complex scenes, interlocking objects, infographics |
 
-Apply advanced thinking for: spatial reasoning tasks, multi-character scenes, infographics with logical flow, architectural scenes, text-heavy layouts.
+**Only enable thinking when:**
+- The model is generating nonsensical results and needs help reasoning
+- Generating highly complex infographics with logical flow
+- Combining complex Image Grounding with spatial reasoning
+- Multi-character scenes with interlocking spatial relationships
 
-## Search Grounding (NB2 Only)
+## Search Grounding & Image Grounding (NB2 Only)
 
-Enable Google Search to let the model retrieve real-world references before generating. Add `tools` with `googleSearch` to the API request. Use for: real landmarks, brand logos, current events, specific real-world objects. Cost: 1,500 free queries/day, then $35/1,000. See **`references/gemini-api.md`** for the exact API parameter.
+NB2 introduces **Image Grounding** — the model can search the internet for specific images to understand exactly what a real-world subject looks like before generating. This goes beyond text-based search.
+
+**Best use cases for Image Grounding:**
+- **Specific locations**: Churches, bridges, city squares, niche buildings — "the main historical church in Voiron, France"
+- **Nature & species**: Exact animal species, breeds, insects — "a machaon butterfly vs a flambé butterfly"
+- **Landmarks**: Monuments, architectural details accurate to reality
+
+**Limitation**: The model cannot search for people.
+
+Enable by adding `tools` with `googleSearch` to the API request. Cost: 1,500 free queries/day, then $35/1,000. See **`references/gemini-api.md`** for the exact API parameter.
 
 ## Resolution and Aspect Ratio
 
@@ -122,13 +139,17 @@ Control resolution and aspect ratio via `generationConfig.imageConfig` parameter
 
 | Resolution | Size | Use Case |
 |---|---|---|
-| `512px` | 512×512 | Ultra-fast previews |
+| `512px` | 512×512 | Ultra-fast previews, cost optimization (~NB1 pricing) |
 | `0.5K` | ~500px | Low-res preview (NB2 only) |
 | `1K` | 1024×1024 | Standard generation |
 | `2K` | 2048×2048 | High quality |
 | `4K` | 4096×4096 | Professional, print-ready |
 
+**Cost-optimization workflow**: Generate at 512px using the Batch API (50% discount) → review and select the best composition → upscale that specific image to 1K/2K/4K. This dramatically reduces iteration costs.
+
 Supported aspect ratios (14 options): `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9`, `1:4`, `4:1`, `1:8`, `8:1`
+
+**Extreme ratios** (NB2): `1:4`/`4:1` and `1:8`/`8:1` are ideal for web banners, continuous scrolling assets, multi-panel comic strips, and bookmark/sidebar layouts.
 
 ## Text Rendering
 
@@ -185,6 +206,7 @@ Set expectations for these issues:
 - Infographic data may be inaccurate — the model generates design, not accurate data
 - Hands/fingers can be distorted — add constraint "anatomically correct hands"
 - Character consistency isn't pixel-perfect — 90%+ perceptual consistency is achievable
+- Image Grounding cannot search for people — use reference images instead for specific person likeness
 
 ## Additional Resources
 

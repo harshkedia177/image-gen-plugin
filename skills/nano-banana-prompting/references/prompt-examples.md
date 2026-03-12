@@ -101,3 +101,46 @@
 
 ### Natural Language
 > A vertical infographic about coffee brewing methods, showing 4 methods (Pour Over, French Press, Espresso, Cold Brew) with illustrated icons for each, brewing time and temperature listed, clean modern design with coffee-brown color palette, the title "The Art of Coffee" at the top
+
+## Cartoon Portraits (Photo-to-3D Character)
+
+### Natural Language
+> Based strictly on the uploaded reference image, create a photorealistic scene featuring the real human standing next to a giant 3D animation-style version of themselves. Both must have identical facial structures, clothing, and poses. The real person is smiling naturally with their hand on the 3D character's shoulder. The 3D version is proportionally larger, anatomically identical but stylized, with expressive eyes and a playful smirk. Clean gray-blue studio background, cinematic lighting, crisp textures.
+
+*Note: Requires uploading a reference image.*
+
+## Animation to Photorealism
+
+### Natural Language
+> Convert this uploaded animated still into an ultra-realistic, cinematic, and fully photorealistic scene. Transform the animated characters into real humans while perfectly preserving their original identities, facial structures, outfits, expressions, and overall likeness.
+
+*Note: Requires uploading an animated reference image.*
+
+## Historical Reimagining (Google Maps Style)
+
+### Natural Language
+> Generate a hyper-realistic image of the crowning of Charlemagne on December 25, 800 AD, perfectly replicating a Google Maps Street View capture. Show Pope Leo III placing the imperial crown on a kneeling Charlemagne inside Old St. Peter's Basilica. Include a 123-degree wide-angle barrel distortion, a semi-transparent Google Maps UI overlay (navigation compass, 2D map thumbnail, white directional chevron arrows floating over the stone floor), and a '© Google 800' watermark. Automatically blur the faces of Charlemagne, the Pope, and surrounding medieval nobles for privacy. Use warm, dim torchlight and candlelight filtering through the basilica, dramatic shadows, and high-ISO digital noise typical of a 360-degree camera struggling in a low-light interior.
+
+## Kindergarten Filter (Crayon Art)
+
+### Natural Language
+> A child's crayon drawing on white lined notebook paper of maple taffy on snow. Use chunky wax-crayon strokes, wobbly outlines, and bright bold colors that messily overflow the lines. Include visible heavy pressure marks, waxy smudges, and uneven scribble shading. Draw important elements disproportionately large with simple flat shapes, round friendly faces, dot eyes, and big curved smiles. Add a classic large yellow sun in the corner, puffy clouds, and zero realistic perspective. Joyful, naive art style.
+
+## Horizontal Comic Strip (Extreme Aspect Ratio)
+
+### Natural Language
+> Create a 4-panel horizontal comic strip (aspect ratio 4:1). The story follows a mischievous cat trying to steal a fish from a kitchen counter that ends with a twist. Use a vibrant, Franco-Belgian comic book style. Keep the cat's design consistent across all panels.
+
+*Use with `imageConfig.aspectRatio: "4:1"` for the extreme horizontal format.*
+
+## Location-Grounded Generation (Image Grounding)
+
+### Natural Language
+> Generate a cinematic, golden-hour photograph of the main historical church in [your city], [your country]. Ensure the architectural details, the spire, the surrounding square, and the landscape are accurate to reality.
+
+*Enable search grounding: `"tools": [{"googleSearch": {"searchTypes": ["imageSearch", "webSearch"]}}]`*
+
+### Natural Language (Nature)
+> Create a realistic picture of a machaon butterfly and a flambé one, and highlight their differences to show how to differentiate them.
+
+*Enable search grounding for accurate species depiction.*

@@ -22,7 +22,7 @@ default_resolution: 1K
 default_aspect_ratio: 1:1
 review_rounds: 0
 save_prompt: true
-thinking_level: auto
+thinking_level: off
 search_grounding: false
 ```
 
@@ -106,17 +106,22 @@ curl -s "https://generativelanguage.googleapis.com/v1beta/models/${MODEL_ID}:gen
   }'
 ```
 
-**Thinking Mode**: If `thinking_level` is `auto`, determine based on complexity:
-- Simple → omit `thinkingConfig` (fastest)
-- Moderate → add `"thinkingConfig": {"thinkingBudget": 2048}`
+**Thinking Mode**: **Keep OFF by default.** For standard image generation, omitting `thinkingConfig` saves time and cost. Only enable when:
+- The model generates nonsensical results and needs reasoning help
+- Generating complex infographics with logical flow
+- Combining Image Grounding with spatial reasoning
+
+If `thinking_level` is `auto`, only add thinking for complex requests:
+- Simple/Moderate → omit `thinkingConfig` (fastest)
 - Complex → add `"thinkingConfig": {"thinkingBudget": 8192}`
 
 If user explicitly set a thinking level, use: `off` = omit, `moderate` = 2048, `advanced` = 8192.
 
-**Search Grounding**: If `search_grounding` is `true`, or the request involves real-world landmarks/logos/products/current events, add to the request body:
+**Search & Image Grounding**: NB2 supports **Image Grounding** — the model searches the internet for specific images to understand real-world subjects before generating. If `search_grounding` is `true`, or the request involves real-world landmarks/locations/species/products/current events, add to the request body:
 ```json
 "tools": [{"googleSearch": {"searchTypes": ["imageSearch", "webSearch"]}}]
 ```
+**Limitation**: Image Grounding cannot search for people. Use reference images instead.
 This is only available with Nano Banana 2. Warn the user if they request grounding with Pro.
 
 **Extract and save the image** from the curl response:

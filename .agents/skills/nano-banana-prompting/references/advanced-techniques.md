@@ -2,23 +2,25 @@
 
 ## Thinking Mode
 
-Nano Banana 2 supports configurable thinking levels that make the model reason through the prompt before rendering. This dramatically improves spatial reasoning, multi-object placement, and complex compositions.
+Nano Banana 2 supports configurable thinking levels that make the model reason through the prompt before rendering. **Recommended: keep OFF by default.** For standard image generation, disabling thinking saves time and cost. Only enable when the model needs help reasoning through complex prompts.
 
 ### Thinking Levels
 
 | Level | Behavior | Cost Impact | Use When |
 |---|---|---|---|
-| Default (Minimal) | Standard generation, no extra reasoning | Baseline | Simple prompts, fast iteration |
-| Advanced (High) | Deep reasoning — plans scene logic, spatial relationships, physics | +20-40% | Complex scenes, precise layouts, interlocking objects |
+| Off (recommended default) | Standard generation, no extra reasoning | Baseline | Standard prompts, fast iteration |
+| Moderate | Plans layout, multi-subject positioning | +10-20% | Multiple subjects, specific layouts |
+| Advanced (High) | Deep reasoning — scene logic, spatial relationships, physics | +20-40% | Complex scenes, precise layouts, interlocking objects |
 | Dynamic | Model decides how much reasoning is needed | Variable | Mixed complexity batches |
 
-### When to Use Advanced Thinking
+### When to Enable Thinking
 
-- **Spatial reasoning**: Objects that must fit together (gears in a watch, books on a shelf)
-- **Multi-character scenes**: Correct positioning and interaction between characters
-- **Infographics**: Logical flow of data, correct hierarchy
-- **Architectural scenes**: Perspective, proportion, structural logic
-- **Text-heavy images**: Layout planning for multiple text elements
+Only turn thinking ON if:
+- The model is generating **nonsensical results** and needs help reasoning through the prompt
+- Generating **highly complex infographics** with logical data flow
+- Combining **complex Image Grounding with spatial reasoning** (e.g., accurate landmark + multi-element scene)
+- **Multi-character scenes** with interlocking spatial relationships
+- **Text-heavy images** with multiple text elements requiring layout planning
 
 ### API Parameter
 
@@ -37,16 +39,27 @@ Set thinking mode via `generationConfig`:
 
 Higher `thinkingBudget` = more reasoning. Use 0 for minimal, 8192+ for advanced.
 
-## Search Grounding (NB2 Only)
+## Search Grounding & Image Grounding (NB2 Only)
 
-Enable Google Search so the model retrieves real-world references before generating. Only available for Nano Banana 2.
+NB2 takes a massive leap beyond text-based search: **Image Grounding**. The model can search the internet for specific images to understand exactly what a real-world subject looks like before generating. This produces dramatically more accurate depictions of specific locations, species, and landmarks.
+
+### Best Practices for Image Grounding
+
+**Specific Locations**: Ask for specific churches, bridges, city squares, or niche buildings:
+> "Generate a cinematic, golden-hour photograph of the main historical church in Voiron, France. Ensure the architectural details, the spire, the surrounding square, and the landscape (mountains) are accurate to reality."
+
+**Nature & Species**: Ask for exact animal species, breeds, or insects:
+> "Create a realistic picture of a machaon butterfly and a flambé one, and highlight their differences to show how to differentiate them."
+
+**Limitation**: The model **cannot search for people**. Use reference images instead for specific person likeness.
 
 ### When to Use
-- Real landmarks, buildings, or locations
+- Real landmarks, buildings, or specific locations
 - Brand logos or product designs
 - Current events or trending topics
 - Specific real-world objects the model might not have in training data
 - Factual accuracy matters (maps, flags, uniforms)
+- Exact biological species, breeds, or insects
 
 ### API Parameter
 

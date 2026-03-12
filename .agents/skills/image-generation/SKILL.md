@@ -22,7 +22,7 @@ End-to-end image generation assistant using Google's Nano Banana (Gemini) models
 | Nano Banana 2 | `gemini-3.1-flash-image-preview` | `gemini-2.5-flash-image` | Fast iteration, web-grounded, batch |
 | Nano Banana Pro | `gemini-3-pro-image-preview` | `gemini-2.5-flash-image` | Maximum quality, complex scenes |
 
-Default to NB2 unless the user explicitly requests Pro or the request demands maximum quality.
+NB2 offers ~95% of Pro's capabilities at a fraction of the cost. Default to NB2 for all new projects. Only step up to Pro when NB2 consistently fails the specific prompt type or the user explicitly requests it.
 
 If both primary and fallback return 404, auto-discover available image models:
 ```bash
@@ -91,17 +91,19 @@ See `references/json-schema.md` for the complete schema.
 
 Build the request with structured `imageConfig` — do NOT rely on prompt text for resolution/aspect ratio.
 
-**Supported resolutions**: `512px`, `0.5K`, `1K`, `2K`, `4K`
+**Supported resolutions**: `512px` (cost optimization, ~NB1 pricing), `0.5K`, `1K`, `2K`, `4K`
+
+**Cost-optimization workflow**: Generate at 512px via Batch API (50% discount) → select best composition → upscale to 1K/2K/4K.
 
 **Supported aspect ratios** (14 options): `1:1`, `2:3`, `3:2`, `3:4`, `4:3`, `4:5`, `5:4`, `9:16`, `16:9`, `21:9`, `1:4`, `4:1`, `1:8`, `8:1`
 
-**Thinking mode** (NB2 only — improves complex scene quality):
-- Simple → omit `thinkingConfig`
-- Moderate → `"thinkingConfig": {"thinkingBudget": 2048}`
-- Complex → `"thinkingConfig": {"thinkingBudget": 8192}` (costs 20-40% more)
+**Thinking mode** (NB2 only — **keep OFF by default**):
+- Standard → omit `thinkingConfig` (recommended default)
+- Moderate → `"thinkingConfig": {"thinkingBudget": 2048}` (only if model produces nonsensical results)
+- Complex → `"thinkingConfig": {"thinkingBudget": 8192}` (complex infographics, Image Grounding + spatial reasoning; costs 20-40% more)
 
-**Search grounding** (NB2 only — for real-world accuracy):
-Add `"tools": [{"googleSearch": {"searchTypes": ["imageSearch", "webSearch"]}}]` when generating real landmarks, logos, products, or current events.
+**Search & Image Grounding** (NB2 only — for real-world accuracy):
+NB2 supports **Image Grounding** — the model searches for specific images to understand real-world subjects. Add `"tools": [{"googleSearch": {"searchTypes": ["imageSearch", "webSearch"]}}]` when generating specific locations, landmarks, biological species, logos, products, or current events. **Cannot search for people** — use reference images instead.
 
 ### Step 4: Generate the Image
 
@@ -221,6 +223,7 @@ The recommended professional approach:
 - Infographic data may be inaccurate — model generates design, not accurate data
 - Hands/fingers can be distorted — add constraint "anatomically correct hands"
 - Character consistency isn't pixel-perfect — 90%+ perceptual consistency is achievable
+- Image Grounding cannot search for people — use reference images for specific person likeness
 
 ## Additional Resources
 
