@@ -247,3 +247,10 @@ Prompts are crafted following Gemini-specific best practices:
 ## License
 
 MIT
+
+<!-- portfolio-link -->
+---
+
+**[Read the case study →](https://harshkedia.com/work/imagine/)** — the design decisions, the trade-offs, and what broke along the way.
+
+Built by [Harsh Kedia](https://harshkedia.com).
